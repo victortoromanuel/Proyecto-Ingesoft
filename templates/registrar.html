@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Registro</title>
+	<script type = "text /javascript" src = "../javascript/registrar.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<body style="background-color:#13D6B7">
+	<nav class="navbar navbar-light bg-white">
+	  <a class="navbar-brand" href="/">
+	    <img src="{{ url_for('static', filename='logo.PNG')}}" width="50%" height="50%" alt="">
+	  </a>
+	  <form class="form-inline">
+			<a class="nav-link" href="/iniciarS">Iniciar Sesión</a>
+			<a class="nav-link" href="/registrar">Registro</a>
+  	  </form>
+	</nav>
+
+<div class="container">
+	<div class="row m-0 justify-content-center align-items-center vh-100" style="background-color:#13D6B7">
+	    <div class="col-sm-7 bg-white" style=" height: 85%">
+		    	<div class="col center-text">
+		    		<div class="form-group" style="align-items: center;
+						justify-content: center;">
+						<br>
+			              <h2 style="text-align: center; line-height: 50% ">Registro</h2>
+							<br>
+							<h5 style="font-family: Bree Serif; text-align: center">Bienvenido a CovSafe</h5>
+							<form method="POST" action="{{ url_for('seleccionarTipo') }}" id="selec">
+
+							<div style="padding: 20%">
+								
+								<span class="input-group-addon">Seleccione su tipo</span>
+				 				 <select id = "t" name = "tipo" class="selectpicker form-control" form="selec">
+								  {% for i in range(3) %}
+								  	<option>{{tipo[i]}}</option>
+								  {% endfor %}
+								 </select>
+								 
+				 			</div>
+				           	
+				 			<div style="display: flex; align-items: center; justify-content: center">
+				 				<form action="/seleccionarTipo" method="POST">
+				 					<input class="btn btn-primary" type="submit" value="Continuar">
+				 				</form>
+				 			</div>
+				        	</form>
+			        	</div>
+		    		</div>
+		    </div>
+	   	</div>
+	</div>
+</div>
+
+</body>
+</html>
