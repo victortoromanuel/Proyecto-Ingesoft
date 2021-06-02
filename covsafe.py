@@ -696,13 +696,13 @@ def ingresoDestiempo(nit):
 		nro = Visita.count_documents({})
 		nro += 1
 		if temperatura >= float(38):
+			valida = 'Denegado'
+		else:
+			riesgo = riesgoContagio(doc, nit, tapabocas)
+			if riesgo >= 60:
 				valida = 'Denegado'
 			else:
-				riesgo = riesgoContagio(doc, nit, tapabocas)
-				if riesgo >= 60:
-					valida = 'Denegado'
-				else:
-					valida = 'Aceptado'
+				valida = 'Aceptado'
 
 			
 		vis = [nro, tipodoc, doc, nit, tapabocas, temperatura, str(datetime.datetime.now().date()), str(datetime.datetime.now().time()),valida]
