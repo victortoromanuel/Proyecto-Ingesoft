@@ -688,11 +688,18 @@ def aforo(nit):
 	actual = datetime.datetime.now()
 	if len(str(actual.month)) < 2: month = '0' + str(actual.month)
 	if len(str(actual.day)) < 2: day = '0' + str(actual.day)
-	date = str(actual.year) + '-' + month + '-' + day
+	datefin = str(actual.year) + '-' + month + '-' + day
+	dateini = str(actual.year) + '-' + month + '-' + day
 	hfin = str(actual.hour) + ':' + str(actual.minute)
-	hour = int(actual.hour) - 3
+	if int(actual.hour) - 3 < 0:
+		hour = int(actual.hour) - 3
+		hour = 24 - hour
+		if len(str(actual.day)) < 2: 
+			tmp = int(actual.day) - 1
+			day = '0' + str(tmp)
+		dateini = str(actual.year) + '-' + month + '-' + day
 	hini = str(hour) + ':' + str(actual.minute)
-	vis = reporteFechaHoraEstablecimientoJson(nit, date, date, hini, hfin)
+	vis = reporteFechaHoraEstablecimientoJson(nit, dateini, datefin, hini, hfin)
 	return len(vis)
 
 def riesgoContagio(Id, nit, tapabocas):
