@@ -694,6 +694,25 @@ def aforo(nit):
 	vis = reporteFechaHoraEstablecimientoJson(nit, date, date, hini, hfin)
 	return len(vis)
 
+def riesgoContagio(edad, tapabocas, aforo):
+	#Riesgo de contagio se va a tomar como un coeficiente de 0 a 1
+	#donde 0 no hay riesgo de contagio y 1 es contagio seguro.
+	riesgo = 0
+	if tapabocas == False:
+		riesgo += 0.7
+	else:
+		riesgo += 0.05 
+
+	if edad > 3 and edad <= 7:
+		riesgo += 0.15
+	elif edad > 60:
+		riesgo += (edad - 60) * 0.006
+
+	riesgo += aforo * 0.015
+
+	if riesgo > 1: riesgo = 1
+	return riesgo * 100
+
 """
 def createPDF():
 	input_file = r'C:/Users/Victor Toro/Desktop/ingesoft/static/excel/archivo.xlsx'
