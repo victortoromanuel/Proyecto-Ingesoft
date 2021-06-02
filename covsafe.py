@@ -695,17 +695,26 @@ def ingresoDestiempo(nit):
 	if ingresar:
 		nro = Visita.count_documents({})
 		nro += 1
-		if tapabocas == 'No' or temperatura >= float(38):
-			valida = 'Denegado'
-		else:
-			valida = 'Aceptado'
+		if temperatura >= float(38):
+				valida = 'Denegado'
+			else:
+				riesgo = riesgoContagio(doc, nit, tapabocas)
+				if riesgo >= 60:
+					valida = 'Denegado'
+				else:
+					valida = 'Aceptado'
 
-		vis = [nro, tipodoc, doc, nit, tapabocas, temperatura, fecha, hora, valida]
+			
+		vis = [nro, tipodoc, doc, nit, tapabocas, temperatura, str(datetime.datetime.now().date()), str(datetime.datetime.now().time()),valida]
 		insertVisita(vis)
-		if valida == 'Aceptado':
-			flash("*Se ha registrado la visita satisfactoriamente")
+		if valida == 'Aceptado' and riesgo < 20:
+			flash("*Se ha registrado la visita satisfactoriamente y el riesgo de contagio del ciudadano es de: " + str(riesgo) + "%")
+		if valida == 'Aceptado' and riesgo < 40 and riesgo >= 20:
+			flash("*Se ha registrado la visita satisfactoriamente y el riesgo de contagio del ciudadano es de: " + str(riesgo) + "%. Cuidado con el aforo.")
+		if valida == 'Aceptado' and riesgo < 60 and riesgo >= 40:
+			flash("*Se ha registrado la visita satisfactoriamente y el riesgo de contagio del ciudadano es de: " + str(riesgo) + "%. No deberías permitir más personas en el establecimiento.")
 		elif valida == 'Denegado':
-			flash("*El usuario no puede ingresar")
+			flash("*El usuario no puede ingresar ya que el riesgo de contagio del ciudadano es de: " + str(riesgo) + "%" + "y por encima de 60% podría ser peligroso.")
 	else:
 		flash("*Ha ocurrido un problema y no se ha registrado la visita")
 
@@ -824,17 +833,26 @@ def leerCodigo(nit):
 			doc = data[1]
 			nro = Visita.count_documents({})
 			nro += 1
-			if tapabocas == 'No' or temperatura >= float(38):
+			if temperatura >= float(38):
 				valida = 'Denegado'
 			else:
-				valida = 'Aceptado'
+				riesgo = riesgoContagio(doc, nit, tapabocas)
+				if riesgo >= 60:
+					valida = 'Denegado'
+				else:
+					valida = 'Aceptado'
 
+			
 			vis = [nro, tipodoc, doc, nit, tapabocas, temperatura, str(datetime.datetime.now().date()), str(datetime.datetime.now().time()),valida]
 			insertVisita(vis)
-			if valida == 'Aceptado':
-				flash("*Se ha registrado la visita satisfactoriamente")
+			if valida == 'Aceptado' and riesgo < 20:
+				flash("*Se ha registrado la visita satisfactoriamente y el riesgo de contagio del ciudadano es de: " + str(riesgo) + "%")
+			if valida == 'Aceptado' and riesgo < 40 and riesgo >= 20:
+				flash("*Se ha registrado la visita satisfactoriamente y el riesgo de contagio del ciudadano es de: " + str(riesgo) + "%. Cuidado con el aforo.")
+			if valida == 'Aceptado' and riesgo < 60 and riesgo >= 40:
+				flash("*Se ha registrado la visita satisfactoriamente y el riesgo de contagio del ciudadano es de: " + str(riesgo) + "%. No deberías permitir más personas en el establecimiento.")
 			elif valida == 'Denegado':
-				flash("*El usuario no puede ingresar")
+				flash("*El usuario no puede ingresar ya que el riesgo de contagio del ciudadano es de: " + str(riesgo) + "%" + "y por encima de 60% podría ser peligroso.")
 		else:
 			flash("*Ha ocurrido un problema y no se ha registrado la visita")
 	est = Establecimiento.find_one({"_id":nit})
