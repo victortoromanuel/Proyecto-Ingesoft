@@ -672,7 +672,7 @@ def edadCiudadano(Id):
 	actual = datetime.datetime.now()
 	ciud = Ciudadano.find_one({"_id":Id})
 	fecha = ciud["Fecha_nacimiento"]
-	año = [0:4]
+	año = fecha[0:4]
 	edad = int(actual.year) - int(año)
 	return edad
 
