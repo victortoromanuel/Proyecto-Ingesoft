@@ -673,7 +673,14 @@ def edadCiudadano(Id):
 	ciud = Ciudadano.find_one({"_id":Id})
 	fecha = ciud["Fecha_nacimiento"]
 	año = fecha[0:4]
+	mes = fecha[5:7]
+	dia = fecha[8:10]
 	edad = int(actual.year) - int(año)
+	if int(actual.month) < int(mes):
+		edad -= 1
+	elif int(actual.month) == int(mes):
+		if int(actual.day) < int(dia):
+			edad -= 1
 	return edad
 
 def aforo(nit):
