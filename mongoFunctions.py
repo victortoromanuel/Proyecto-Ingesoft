@@ -681,7 +681,7 @@ def edadCiudadano(Id):
 	elif int(actual.month) == int(mes):
 		if int(actual.day) < int(dia):
 			edad -= 1
-	return edad
+	return int(edad)
 
 def aforo(nit):
 	#Numero de visitas en las ultimas 3 horas
