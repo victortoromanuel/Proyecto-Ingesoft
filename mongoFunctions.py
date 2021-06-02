@@ -317,8 +317,6 @@ def reporteFechaEstablecimientoJson(nit, ini, fin):
 def reporteFechaHoraEstablecimientoJson(nit, fini, ffin, hini, hfin):
 	ini = fini + ' ' + hini
 	fin = ffin + ' ' + hfin
-	print(ini)
-	print(fin)
 	ini = datetime.datetime.strptime(ini , '%Y-%m-%d %H:%M')
 	fin = datetime.datetime.strptime(fin , '%Y-%m-%d %H:%M')
 	results = Visita.find({"NIT_Establecimiento": nit})
@@ -692,9 +690,8 @@ def aforo(nit):
 	if len(str(actual.day)) < 2: day = '0' + str(actual.day)
 	date = str(actual.year) + '-' + month + '-' + day
 	hfin = str(actual.hour) + ':' + str(actual.minute)
-	hini = str(actual.hour - 3) + ':' + str(actual.minute)
-	print(hfin)
-	print(hini)
+	hour = int(actual.hour) - 3
+	hini = str(hour) + ':' + str(actual.minute)
 	vis = reporteFechaHoraEstablecimientoJson(nit, date, date, hini, hfin)
 	return len(vis)
 
