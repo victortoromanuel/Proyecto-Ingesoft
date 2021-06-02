@@ -668,6 +668,24 @@ def createPDFSalud(col):
 	return 
 
 
+def edadCiudadano(Id):
+	actual = datetime.datetime.now()
+	ciud = Ciudadano.find_one({"_id":Id})
+	fecha = ciud["Fecha_nacimiento"]
+	año = [0:4]
+	edad = int(actual.year) - int(año)
+	return edad
+
+def aforo(nit):
+	#Numero de visitas en las ultimas 3 horas
+	actual = datetime.datetime.now()
+	if len(str(actual.month)) < 2: month = '0' + str(actual.month)
+	if len(str(actual.day)) < 2: day = '0' + str(actual.day)
+	date = str(actual.year) + '-' + month + '-' + day
+	hfin = str(actual.hour) + ':' + str(actual.minute) + ':' + str(actual.second) + '.' + '0'
+	hini = str(actual.hour - 3) + ':' + str(actual.minute) + ':' + str(actual.second) + '.' + '0'
+	vis = reporteFechaHoraEstablecimientoJson(nit, date, date, hini, hfin)
+	return len(vis)
 
 """
 def createPDF():
