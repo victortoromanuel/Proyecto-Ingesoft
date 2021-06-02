@@ -694,11 +694,13 @@ def aforo(nit):
 	vis = reporteFechaHoraEstablecimientoJson(nit, date, date, hini, hfin)
 	return len(vis)
 
-def riesgoContagio(edad, tapabocas, aforo):
+def riesgoContagio(Id, nit, tapabocas):
 	#Riesgo de contagio se va a tomar como un coeficiente de 0 a 1
 	#donde 0 no hay riesgo de contagio y 1 es contagio seguro.
+	edad = edadCiudadano(Id)
+	vis = aforo(nit)
 	riesgo = 0
-	if tapabocas == False:
+	if tapabocas == 'No':
 		riesgo += 0.7
 	else:
 		riesgo += 0.05 
@@ -708,7 +710,7 @@ def riesgoContagio(edad, tapabocas, aforo):
 	elif edad > 60:
 		riesgo += (edad - 60) * 0.006
 
-	riesgo += aforo * 0.015
+	riesgo += vis * 0.015
 
 	if riesgo > 1: riesgo = 1
 	return riesgo * 100
