@@ -50,14 +50,14 @@
 											<label><b>Nombres:</b></label><br>
 											
 										</font>
-								      <input type="text" class="form-control" name="inputNom" value="{{data[0][1]}}">
+								      <input type="text" class="form-control" name="inputNom" value="{{data[0][1]}}" required>
 								    </div>
 								    <div class="form-group col-md-6">
 										<font size=2>
 											<label><b>Apellidos:</b></label><br>
 											
 										</font>
-								      <input type="text" class="form-control" id="inputAp" name="inputAp" value="{{data[0][2]}}">
+								      <input type="text" class="form-control" id="inputAp" name="inputAp" value="{{data[0][2]}}" required>
 								    </div>
 								  </div>
 
@@ -67,14 +67,14 @@
 											<label><b>Número de contacto:</b></label><br>
 											
 										</font>
-								      <input type="text" class="form-control" name="inputNum" value="{{data[0][7]}}">
+								      <input type="text" class="form-control" name="inputNum" value="{{data[0][7]}}" required>
 								    </div>
 								    <div class="form-group col-md-6">
 										<font size=2>
 											<label><b>Género:</b></label><br>
 											
 										</font>
-						 				 <select name = "tipoGen" class="form-control" value="{{data[0][4]}}">
+						 				 <select name = "tipoGen" class="form-control" value="{{data[0][4]}}" required>
 										  <option>Hombre</option>
 										  <option>Mujer</option>
 										  <option>N/A</option>
@@ -87,7 +87,7 @@
 								    	<font size=2>
 									      <label><b>Contraseña </b></label><br>
 									    </font>
-								      	<input type="password" class="form-control" name="inputPassword" value="{{data[0][13]}}">
+								      	<input type="password" class="form-control" name="inputPassword" value="{{data[0][13]}}" required>
 								    </div>
 								    <div class="form-group col-md-6">
 								    	<font size=2>
@@ -105,7 +105,7 @@
 								    	<font size=2>
 											<label><b>Municipio:</b></label><br>
 										</font>
-										<select id="municipio" name="inputMuni"  class="form-control">
+										<select id="municipio" name="inputMuni"  class="form-control" required>
 											<option selected="true">{{data[0][9]}}</option>
 								    	</select>
 										
@@ -114,7 +114,7 @@
 										<font size=2>
 											<label><b>Barrio:</b></label><br>
 										</font>
-										<input type="text" class="form-control" name="inputBarrio" value="{{data[0][10]}}">
+										<input type="text" class="form-control" name="inputBarrio" value="{{data[0][10]}}" required>
 								    </div>
 								  </div>
 								  
@@ -122,21 +122,21 @@
 								    	<font size=2>
 											<label><b>Dirección:</b></label><br>
 										</font>
-								      <input type="text" class="form-control" name="inputAddress" value="{{data[0][11]}}">
+								      <input type="text" class="form-control" name="inputAddress" value="{{data[0][11]}}" required>
 								    </div>
 								  
 								  <div class="form-row">
 								  		<font size=2>
 											<label><b>Correo electrónico:</b></label><br>
 										</font>
-								      <input type="email" class="form-control" name="inputemail" value="{{data[0][6]}}">
+								      <input type="email" class="form-control" name="inputemail" value="{{data[0][6]}}" required>
 								  </div>
 
 								   <div class="form-row">
 								    	<font size=2>
 											<label><b>Cédula:</b></label><br>
 										</font>
-								      <input type="text" class="form-control" readonly='true' name="cedula" value="{{data[0][0]}}">
+								      <input type="text" class="form-control" readonly='true' name="cedula" value="{{data[0][0]}}" required>
 								  </div>
 
 					 			<div style="display: flex; align-items: center; justify-content: center; padding: 5%">
