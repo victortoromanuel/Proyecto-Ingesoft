@@ -14,18 +14,14 @@ from werkzeug.utils import secure_filename
 from pymongo import MongoClient
 from mongoFunctions import *
 
-#C:/Users/Victor Toro/Documents/Proyecto Ingesoft AWS/ingesoft/static/archivosRUT/
-
 UPLOAD_FOLDER = "/home/ubuntu/reportedos/Proyecto-Ingesoft/ingesoft/static/leerCodigosQR/"
 UPLOAD_FOLDER2 = "/home/ubuntu/reportedos/Proyecto-Ingesoft/ingesoft/static/archivosRUT/"
 UPLOAD_FOLDER3 = "/home/ubuntu/reportedos/Proyecto-Ingesoft/ingesoft/static/excel/"
-#@login_required
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['UPLOAD_FOLDER2'] = UPLOAD_FOLDER2
 app.config['UPLOAD_FOLDER3'] = UPLOAD_FOLDER3
-#app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.secret_key = 'secreto'
 
 @app.route('/')
@@ -35,7 +31,6 @@ def inicio():
 
 @app.after_request
 def add_header(response):
-	# response.cache_control.no_store = True
 	if 'Cache-Control' not in response.headers:
 		response.headers['Cache-Control'] = 'no-store'
 	return response
@@ -74,7 +69,6 @@ def categoriasID(Id):
 
 @app.route('/aceptarCierre/<nit>/<Id>')
 def aceptarCierre(nit, Id):
-	#sol = Solicitud.find_one({"_id":nit})
 	Solicitud.delete_one({"_id":nit})
 	Establecimiento.update_one({"_id":nit}, {"$set": {"Usuario":"","Contraseña":""}})
 	flash("Establecimiento cerrado satisfactoriamente")
@@ -82,9 +76,7 @@ def aceptarCierre(nit, Id):
 
 @app.route('/denegarCierre/<nit>/<Id>')
 def denegarCierre(nit, Id):
-	#sol = Solicitud.find_one({"_id":nit})
 	Solicitud.delete_one({"_id":nit})
-	#Establecimiento.update_one({"_id":nit, "Usuario":"", "Contraseña":""})
 	flash("Solicitud de cierre de establecimiento denegada")
 	return redirect('/aprobacionCierreID/' + Id)
 
@@ -384,14 +376,7 @@ def reporteDocumentoAdministrador(data):
 @app.route('/reporteFechaHoraAdministrador')
 def reporteFechaHoraAdministrador(data):
 	return render_template('reporteFechaHoraAdministrador.html', data)
-"""
-@app.route('/reporteGeneroAdministradorID/<Id>')
-def reporteGeneroAdministradorID(Id):
-	adm = Admin.find_one({"_id":Id})
-	data = [adm["Usuario"], adm["_id"]]
-	data = [data]
-	return render_template('reporteGeneroAdministrador.html', data = data)
-"""
+
 @app.route('/infoAdministrador')
 def infoAdministrador(data):
 	return render_template('infoAdministrador.html', data)
@@ -490,8 +475,6 @@ def regDatosSalud():
 	datos = [nit, razon, cate, correo, contacto, departamento, municipio, barrio, direccion, usuario, contra, "Registro"]	
 	insertSolicitud(datos)
 	flash('*Solicitud de registro enviada')
-	#datos = [nit, razon, cate, correo, contacto, departamento, municipio, barrio, direccion, usuario, contra, " "]	
-	#insertSalud(datos)
 	return redirect('/iniciarS')
 
 #Selecciona tipo de registro (por rol)
@@ -666,7 +649,6 @@ def genCodigoQR(Id):
 	qr.make(fit=True)
 	imagen = qr.make_image()
 	dir_path = "/home/ubuntu/reportedos/Proyecto-Ingesoft/ingesoft/static/codigosQR/" + str(Id) + ".PNG"
-	#dir_path = "C:/Users/Victor Toro/Documents/Proyecto Ingesoft AWS/ingesoft/static/codigosQR/" + str(Id) + ".PNG" 
 	imagen.save(dir_path, 'PNG')
 	return render_template('/codigoQR.html', data = data)
 
@@ -863,7 +845,6 @@ def leerCodigo(nit):
 @app.route('/filtroVisitasCiudadano/<Id>', methods=['POST'])
 def filtroVisitasCiudadano(Id):
 	if request.method == 'POST':
-		#descarga = request.form.get("tipo")
 		ans = reporteVisitasCiudadanoJson(Id)
 		if len(ans) != 0:
 			fil = jsonExcel(ans)
@@ -897,7 +878,6 @@ def filtroVisFechaCiudadano(Id):
 def filtroVisFechaHoraCiudadano(Id):
 	if request.method == 'POST':
 		fini = request.form.get("inicio")
-		#ffin = request.form.get("fin")
 		hini = request.form.get("hinicio")
 		hfin = request.form.get("hfin")
 		ans = reporteFechaHoraCiudadanoJson(Id, fini, fini, hini, hfin)
@@ -948,10 +928,8 @@ def filtroFechaEstablecimiento(nit):
 def filtroFechaHoraEstablecimiento(nit):
 	if request.method == 'POST':
 		fini = request.form.get("inicio")
-		#ffin = request.form.get("fin")
 		hini = request.form.get("hinicio")
 		hfin = request.form.get("hfin")
-		#descarga = request.form.get("tipo")
 		ans = reporteFechaHoraEstablecimientoJson(nit, fini, fini, hini, hfin)
 		if len(ans) != 0:
 			fil = jsonExcel(ans)
@@ -968,7 +946,6 @@ def filtroFechaHoraEstablecimiento(nit):
 def filtroDocEstablecimiento(nit):
 	if request.method == 'POST':
 		doc = request.form.get("doc")
-		#descarga = request.form.get("tipo")
 		ans = reporteDocumentoEstablecimientoJson(nit, doc)
 		if len(ans) != 0:
 			fil = jsonExcel(ans)
@@ -985,7 +962,6 @@ def filtroDocEstablecimiento(nit):
 def filtroNomEstablecimiento(nit):
 	if request.method == 'POST':
 		nom = request.form.get("nombres")
-		#descarga = request.form.get("tipo")
 		ans = reporteNombreEstablecimientoJson(nit, nom)
 		if len(ans) != 0:
 			fil = jsonExcel(ans)
@@ -1002,7 +978,6 @@ def filtroNomEstablecimiento(nit):
 def filtroApeEstablecimiento(nit):
 	if request.method == 'POST':
 		ape = request.form.get("apellido")
-		#descarga = request.form.get("tipo")
 		ans = reporteApellidoEstablecimientoJson(nit, ape)
 		if len(ans) != 0:
 			fil = jsonExcel(ans)
@@ -1018,7 +993,6 @@ def filtroApeEstablecimiento(nit):
 @app.route('/filtroExamenesSalud/<nit>', methods=['POST'])
 def filtroExamenesSalud(nit):
 	if request.method == 'POST':
-		#descarga = request.form.get("tipo")
 		ans = reporteExamenesSaludJson(nit)
 		if len(ans) != 0:
 			fil = jsonExcelSalud(ans)
@@ -1036,7 +1010,6 @@ def filtroFechaSalud(nit):
 	if request.method == 'POST':
 		ini = request.form.get("inicio")
 		fin = request.form.get("fin")
-		#descarga = request.form.get("tipo")
 		ans = reporteFechaSaludJson(nit, ini, fin)
 		if len(ans) != 0:
 			fil = jsonExcelSalud(ans)
@@ -1053,7 +1026,6 @@ def filtroFechaSalud(nit):
 def filtroEstadoSalud(nit):
 	if request.method == 'POST':
 		res = request.form.get("resul")
-		#descarga = request.form.get("tipo")
 		ans = reporteEstadoSaludJson(nit, res)
 		if len(ans) != 0:
 			fil = jsonExcelSalud(ans)
@@ -1123,7 +1095,6 @@ def filtroEstablecimientoAdmin(Id):
 @app.route('/filtroExamenesAdmin/<Id>', methods=['POST'])
 def filtroExamenesAdmin(Id):
 	if request.method == 'POST':
-		#gen = request.form.get("tipo")
 		ans = reporteExamenesAdminJson() 
 		if len(ans) != 0:
 			fil = jsonExcelSalud(ans)
@@ -1135,23 +1106,7 @@ def filtroExamenesAdmin(Id):
 	data = [adm["Usuario"], adm["_id"]]
 	data = [data]
 	return render_template('reporteExamenesAdministrador.html', data = data)
-"""
-@app.route('/filtroAforoAdmin/<Id>', methods=['POST'])
-def filtroAforoAdmin(Id):
-	if request.method == 'POST':
-		num = request.form.get("tipo")
-		#ans = reporteGeneroAdminJson(num) 
-		if len(ans) != 0:
-			fil = jsonExcel(ans)
-			createExcel(fil)
-			createPDF(fil)
-		else:
-			flash("*No se encontraron coincidencias con el filtro")
-	adm = Admin.find_one({"_id":Id})
-	data = [adm["Usuario"], adm["_id"]]
-	data = [data]
-	return render_template('reporteAforoAdministrador.html', data = data)
-"""
+
 @app.route('/filtroDocumentoAdmin/<Id>', methods=['POST'])
 def filtroDocumentoAdmin(Id):
 	if request.method == 'POST':
@@ -1174,10 +1129,8 @@ def filtroDocumentoAdmin(Id):
 def filtroFechaHoraAdmin(Id):
 	if request.method == 'POST':
 		fini = request.form.get("inicio")
-		#ffin = request.form.get("fin")
 		hini = request.form.get("hinicio")
 		hfin = request.form.get("hfin")
-		#descarga = request.form.get("tipo")
 		ans = reporteFechaHoraAdminJson(fini, fini, hini, hfin)
 		if len(ans) != 0:
 			fil = jsonExcel(ans)
@@ -1193,16 +1146,13 @@ def filtroFechaHoraAdmin(Id):
 @app.route('/download/<path:nom>')
 def download_file(nom):
 	filename = "/home/ubuntu/reportedos/Proyecto-Ingesoft/ingesoft/static/" + nom
-	#filename = "C:/Users/Victor Toro/Documents/Proyecto Ingesoft AWS/ingesoft/static/" + nom
 	return send_file(filename, as_attachment=True)
 
 @app.route('/crearCategoria/<Id>', methods=['POST'])
 def crearCategoria(Id):
 	if request.method == 'POST':
 		nombre = request.form.get("inputCat")
-		#print(nombre)
 		ans = Categoria.find_one({"Nombre":nombre})
-		#print(ans == None)
 		if ans == None:
 			nro = Categoria.count_documents({}) + 1
 			dato = [nro, nombre]
