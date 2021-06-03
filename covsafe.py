@@ -42,7 +42,7 @@ def iniciarS():
 
 @app.route('/registrar')
 def registrar():
-	return render_template('registrar.html', tipo=['Ciudadano', 'Establecimiento', 'Entidad de salud'])
+	return render_template('registrar.html', tipo=['Ciudadano', 'Establecimiento'])#, 'Entidad de salud'])
 
 @app.route('/registroCiudadano')
 def registroCiudadano():
