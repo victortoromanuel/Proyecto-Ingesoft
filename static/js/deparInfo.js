@@ -22,7 +22,7 @@ function muni(){
         }
     }
     var m = '<option selected="true" disabled="disabled">seleccione...</option>';
-    ciud = x[index]["ciudades"];
+    var ciud = x[index]["ciudades"];
     for(var v in ciud){
 		m = m +'<option value="'+ciud[v]+'">'+ciud[v]+'</option>';
 	}
