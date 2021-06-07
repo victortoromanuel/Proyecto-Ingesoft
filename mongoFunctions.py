@@ -715,7 +715,7 @@ def riesgoContagio(edad, vis, tapabocas, temperatura):
 	else:
 		riesgo += 0.05 
 
-	if temperatura >= 38:
+	if temperatura >= float(38):
 		riesgo += 0.3
 
 	if edad > 3 and edad <= 7:
