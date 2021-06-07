@@ -709,6 +709,7 @@ def riesgoContagio(edad, vis, tapabocas):
 	#edad = edadCiudadano(Id)
 	#vis = aforo(nit)
 	riesgo = 0
+	valida = ""
 	if tapabocas == 'No':
 		riesgo += 0.7
 	else:
@@ -722,5 +723,12 @@ def riesgoContagio(edad, vis, tapabocas):
 	riesgo += vis * 0.015
 
 	if riesgo > 1: riesgo = 1
-	return riesgo * 100
+	
+	if riesgo >= 60:
+		valida = 'Denegado'
+	else:
+		valida = 'Aceptado'
+	
+	riesgo = riesgo * 100
+	return riesgo, valida
 
