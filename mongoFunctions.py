@@ -691,6 +691,7 @@ def aforo(nit):
 	datefin = str(actual.year) + '-' + month + '-' + day
 	dateini = str(actual.year) + '-' + month + '-' + day
 	hfin = str(actual.hour) + ':' + str(actual.minute)
+	
 	if int(actual.hour) - 3 < 0:
 		hour = int(actual.hour) - 3
 		hour = 24 - hour
@@ -698,6 +699,8 @@ def aforo(nit):
 			tmp = int(actual.day) - 1
 			day = '0' + str(tmp)
 		dateini = str(actual.year) + '-' + month + '-' + day
+	else:
+		hour = int(actual.hour)
 	hini = str(hour) + ':' + str(actual.minute)
 	vis = reporteFechaHoraEstablecimientoJson(nit, dateini, datefin, hini, hfin)
 	return len(vis)
