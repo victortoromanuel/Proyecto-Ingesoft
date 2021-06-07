@@ -683,11 +683,6 @@ def ingresoDestiempo(nit):
 			edad = edadCiudadano(Id)
 			vis = aforo(nit)
 			riesgo = riesgoContagio(edad, vis, tapabocas)
-			if riesgo >= 60:
-				valida = 'Denegado'
-			else:
-				valida = 'Aceptado'
-
 			
 		vis = [nro, tipodoc, doc, nit, tapabocas, temperatura, str(datetime.datetime.now().date()), str(datetime.datetime.now().time()),valida]
 		insertVisita(vis)
@@ -820,12 +815,9 @@ def leerCodigo(nit):
 			if temperatura >= float(38):
 				valida = 'Denegado'
 			else:
-				riesgo = riesgoContagio(doc, nit, tapabocas)
-				if riesgo >= 60:
-					valida = 'Denegado'
-				else:
-					valida = 'Aceptado'
-
+				edad = edadCiudadano(Id)
+				vis = aforo(nit)
+				riesgo, valida = riesgoContagio(edad, vis, tapabocas)
 			
 			vis = [nro, tipodoc, doc, nit, tapabocas, temperatura, str(datetime.datetime.now().date()), str(datetime.datetime.now().time()),valida]
 			insertVisita(vis)
