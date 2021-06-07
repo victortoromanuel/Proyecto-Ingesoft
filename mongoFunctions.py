@@ -705,12 +705,9 @@ def aforo(nit):
 	vis = reporteFechaHoraEstablecimientoJson(nit, dateini, datefin, hini, hfin)
 	return len(vis)
 
-#def riesgoContagio(Id, nit, tapabocas):
 def riesgoContagio(edad, vis, tapabocas, temperatura):
 	#Riesgo de contagio se va a tomar como un coeficiente de 0 a 1
 	#donde 0 no hay riesgo de contagio y 1 es contagio seguro.
-	#edad = edadCiudadano(Id)
-	#vis = aforo(nit)
 	riesgo = 0
 	valida = ""
 	if tapabocas == 'No':
