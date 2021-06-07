@@ -703,7 +703,7 @@ def aforo(nit):
 	return len(vis)
 
 #def riesgoContagio(Id, nit, tapabocas):
-def riesgoContagio(edad, vis, tapabocas):
+def riesgoContagio(edad, vis, tapabocas, temperatura):
 	#Riesgo de contagio se va a tomar como un coeficiente de 0 a 1
 	#donde 0 no hay riesgo de contagio y 1 es contagio seguro.
 	#edad = edadCiudadano(Id)
@@ -711,9 +711,12 @@ def riesgoContagio(edad, vis, tapabocas):
 	riesgo = 0
 	valida = ""
 	if tapabocas == 'No':
-		riesgo += 0.7
+		riesgo += 0.6
 	else:
 		riesgo += 0.05 
+
+	if temperatura >= 38:
+		riesgo += 0.3
 
 	if edad > 3 and edad <= 7:
 		riesgo += 0.15
