@@ -726,12 +726,13 @@ def riesgoContagio(edad, vis, tapabocas, temperatura):
 	riesgo += vis * 0.015
 
 	if riesgo > 1: riesgo = 1
+		
+	riesgo = riesgo * 100
 	
 	if riesgo >= 60:
 		valida = 'Denegado'
 	else:
 		valida = 'Aceptado'
 	
-	riesgo = riesgo * 100
 	return riesgo, valida
 
