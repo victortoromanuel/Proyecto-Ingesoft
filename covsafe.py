@@ -680,7 +680,9 @@ def ingresoDestiempo(nit):
 		if temperatura >= float(38):
 			valida = 'Denegado'
 		else:
-			riesgo = riesgoContagio(doc, nit, tapabocas)
+			edad = edadCiudadano(Id)
+			vis = aforo(nit)
+			riesgo = riesgoContagio(edad, vis, tapabocas)
 			if riesgo >= 60:
 				valida = 'Denegado'
 			else:
