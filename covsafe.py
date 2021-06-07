@@ -682,7 +682,7 @@ def ingresoDestiempo(nit):
 
 		edad = edadCiudadano(doc)
 		vis = aforo(nit)
-		riesgo, valida = riesgoContagio(edad, vis, tapabocas)
+		riesgo, valida = riesgoContagio(edad, vis, tapabocas, temperatura)
 			
 		vis = [nro, tipodoc, doc, nit, tapabocas, temperatura, str(datetime.datetime.now().date()), str(datetime.datetime.now().time()),valida]
 		insertVisita(vis)
@@ -817,7 +817,7 @@ def leerCodigo(nit):
 
 			edad = edadCiudadano(doc)
 			vis = aforo(nit)
-			riesgo, valida = riesgoContagio(edad, vis, tapabocas)
+			riesgo, valida = riesgoContagio(edad, vis, tapabocas, temperatura)
 			
 			vis = [nro, tipodoc, doc, nit, tapabocas, temperatura, str(datetime.datetime.now().date()), str(datetime.datetime.now().time()),valida]
 			insertVisita(vis)
