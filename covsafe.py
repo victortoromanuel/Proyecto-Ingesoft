@@ -680,7 +680,7 @@ def ingresoDestiempo(nit):
 		nro = Visita.count_documents({})
 		nro += 1
 
-		edad = edadCiudadano(Id)
+		edad = edadCiudadano(doc)
 		vis = aforo(nit)
 		riesgo, valida = riesgoContagio(edad, vis, tapabocas)
 			
@@ -815,7 +815,7 @@ def leerCodigo(nit):
 			riesgo = 0
 			valida = 'Denegado'
 
-			edad = edadCiudadano(Id)
+			edad = edadCiudadano(doc)
 			vis = aforo(nit)
 			riesgo, valida = riesgoContagio(edad, vis, tapabocas)
 			
