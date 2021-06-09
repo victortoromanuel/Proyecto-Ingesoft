@@ -684,7 +684,7 @@ def ingresoDestiempo(nit):
 		vis = aforo(nit)
 		riesgo, valida = riesgoContagio(edad, vis, tapabocas, temperatura)
 			
-		vis = [nro, tipodoc, doc, nit, tapabocas, temperatura, str(datetime.datetime.now().date()), str(datetime.datetime.now().time()),valida]
+		vis = [nro, tipodoc, doc, nit, tapabocas, temperatura, fecha, hora, valida]
 		insertVisita(vis)
 		if valida == 'Aceptado' and riesgo < 20:
 			flash("*Se ha registrado la visita satisfactoriamente y el riesgo de contagio del ciudadano es de: " + str(riesgo) + "%")
